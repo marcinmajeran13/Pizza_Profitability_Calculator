@@ -1,4 +1,5 @@
 #:import utils kivy.utils
+#: import SwapTransition kivy.uix.screenmanager.SwapTransition
 
 WindowManager:
     WelcomeWindow:
@@ -8,60 +9,187 @@ WindowManager:
 
 <WelcomeWindow>:
     FloatLayout:
+
+        Label:
+            pos_hint: {'x':0.05, 'top':1.43}
+            text: 'Welcome to  '
+            size: self.texture_size
+            font_size: '36dp'
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
+
+        Label:
+            pos_hint: {'x':0, 'top':1.35}
+            text: 'Pizza'
+            bold: True
+            size: self.texture_size
+            font_size: '38dp'
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
+
+        Label:
+            pos_hint: {'x':0, 'top':1.27}
+            text: 'Profitability Calculator'
+            size: self.texture_size
+            font_size: '22dp'
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
+
+        Label:
+            pos_hint: {'x':0, 'top':1.2}
+            text: 'by Marcin Majeran'
+            size: self.texture_size
+            font_size: '16dp'
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
+
+
         Button:
             pos_hint: {'x':0.25, 'top':0.25}
             text: 'START'
             size_hint: 0.5, 0.1
-            color: utils.get_color_from_hex('#ff6726')
+            color: utils.get_color_from_hex('#d1cbcb')
             font_size: '25dp'
             bold: True
             canvas.before:
                 Color:
-                    rgba: 1, .4, .14, 1
+                    rgba: .36, .65, .36, 1
                 Line:
-                    width: 2
+                    width: 5
                     rectangle: self.x, self.y, self.width, self.height
             on_release:
                 app.root.current = 'main'
-                root.manager.transition.direction = 'up'
+                root.manager.transition = SwapTransition()
 
 <MainWindow>:
     name: 'main'
+    FloatLayout:
+        Button:
+            pos_hint: {'x':0.33, 'top':0.25}
+            text: 'Calculate'
+            size_hint: 0.33, 0.07
+            color: utils.get_color_from_hex('#d1cbcb')
+            font_size: '25dp'
+            bold: True
+            canvas.before:
+                Color:
+                    rgba: .36, .65, .36, 1
+                Line:
+                    width: 5
+                    rectangle: self.x, self.y, self.width, self.height
+            on_release:
+                app.root.current = 'result'
 
-    Button:
-        pos_hint: {'x':0.25, 'top':0.25}
-        text: 'CALC'
-        size_hint: 0.5, 0.1
-        color: utils.get_color_from_hex('#ff6726')
-        font_size: '25dp'
-        bold: True
-        canvas.before:
-            Color:
-                rgba: 1, .4, .14, 1
-            Line:
-                width: 2
-                rectangle: self.x, self.y, self.width, self.height
-        on_release:
-            app.root.current = 'result'
-            root.manager.transition.direction = 'left'
+        Button:
+            pos_hint: {'x':0.375, 'top':0.1}
+            text: 'Exit'
+            size_hint: 0.25, 0.05
+            color: utils.get_color_from_hex('#d1cbcb')
+            font_size: '25dp'
+            bold: True
+            canvas.before:
+                Color:
+                    rgba: .36, .65, .36, 1
+                Line:
+                    width: 5
+                    rectangle: self.x, self.y, self.width, self.height
+            on_release:
+                app.stop()
 
+        TextInput:
+            hint_text: 'Quantity'
+            pos_hint: {'x':0.1, 'top':0.7}
+            size_hint: 0.3, 0.05
+            multiline: False
+            font_size: 12
+            background_color: utils.get_color_from_hex('#454343')
+            foreground_color: utils.get_color_from_hex('#ffffff')
+
+        TextInput:
+            hint_text: 'Size'
+            pos_hint: {'x':0.1, 'top':0.6}
+            size_hint: 0.3, 0.05
+            multiline: False
+            font_size: 12
+            background_color: utils.get_color_from_hex('#454343')
+            foreground_color: utils.get_color_from_hex('#ffffff')
+
+        TextInput:
+            hint_text: 'Price'
+            pos_hint: {'x':0.1, 'top':0.5}
+            size_hint: 0.3, 0.05
+            multiline: False
+            font_size: 12
+            background_color: utils.get_color_from_hex('#454343')
+            foreground_color: utils.get_color_from_hex('#ffffff')
+
+        TextInput:
+            hint_text: 'Quantity'
+            pos_hint: {'x':0.6, 'top':0.7}
+            size_hint: 0.3, 0.05
+            multiline: False
+            font_size: 12
+            background_color: utils.get_color_from_hex('#454343')
+            foreground_color: utils.get_color_from_hex('#ffffff')
+
+        TextInput:
+            hint_text: 'Size'
+            pos_hint: {'x':0.6, 'top':0.6}
+            size_hint: 0.3, 0.05
+            multiline: False
+            font_size: 12
+            background_color: utils.get_color_from_hex('#454343')
+            foreground_color: utils.get_color_from_hex('#ffffff')
+
+        TextInput:
+            hint_text: 'Price'
+            pos_hint: {'x':0.6, 'top':0.5}
+            size_hint: 0.3, 0.05
+            multiline: False
+            font_size: 12
+            background_color: utils.get_color_from_hex('#454343')
+            foreground_color: utils.get_color_from_hex('#ffffff')
+
+        Label:
+            pos_hint: {'x':0, 'top':1.4}
+            text: "Enter details about pizza's sets:"
+            size: self.texture_size
+            font_size: '16dp'
+            bold: True
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
+
+        Label:
+            pos_hint: {'x':-0.26, 'top':1.22}
+            text: '#1'
+            size: self.texture_size
+            font_size: '16dp'
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
+
+        Label:
+            pos_hint: {'x':0.24, 'top':1.22}
+            text: '#2'
+            size: self.texture_size
+            font_size: '16dp'
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
 
 <ResultWindow>:
     name: 'result'
 
     Button:
-        pos_hint: {'x':0.25, 'top':0.25}
+        pos_hint: {'x':0.3, 'top':0.15}
         text: 'BACK'
-        size_hint: 0.5, 0.1
-        color: utils.get_color_from_hex('#ff6726')
+        size_hint: 0.4, 0.1
+        color: utils.get_color_from_hex('#d1cbcb')
         font_size: '25dp'
         bold: True
         canvas.before:
             Color:
-                rgba: 1, .4, .14, 1
+                rgba: .36, .65, .36, 1
             Line:
-                width: 2
+                width: 5
                 rectangle: self.x, self.y, self.width, self.height
         on_release:
             app.root.current = 'main'
-            root.manager.transition.direction = 'right'

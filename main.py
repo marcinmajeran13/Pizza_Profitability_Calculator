@@ -1,12 +1,14 @@
 from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.uix.screenmanager import Screen, ScreenManager, SwapTransition
 from kivy.uix.boxlayout import BoxLayout
 from kivy.utils import get_color_from_hex
 from kivy.core.window import Window
 from kivy.lang import Builder
 
-Window.clearcolor = get_color_from_hex('#454343')
+
+Window.clearcolor = get_color_from_hex('#d1cbcb')
+Window.size = (375,675)
 
 
 class WelcomeWindow(Screen, FloatLayout):
