@@ -5,7 +5,7 @@ WindowManager:
     WelcomeWindow:
     MainWindow:
     ResultWindow:
-
+    P:
 
 <WelcomeWindow>:
     FloatLayout:
@@ -25,13 +25,14 @@ WindowManager:
             size: self.texture_size
             font_size: '38dp'
             font_name: 'RobotoMono-Regular'
-            color: utils.get_color_from_hex('#69a65e')
+            color: utils.get_color_from_hex('#ce4b4b')
 
         Label:
             pos_hint: {'x':0, 'top':1.27}
             text: 'Profitability Calculator'
             size: self.texture_size
-            font_size: '22dp'
+            bold: True
+            font_size: '23dp'
             font_name: 'RobotoMono-Regular'
             color: utils.get_color_from_hex('#69a65e')
 
@@ -43,12 +44,28 @@ WindowManager:
             font_name: 'RobotoMono-Regular'
             color: utils.get_color_from_hex('#69a65e')
 
+        Image:
+            source: 'pizza.png'
+            pos_hint: {'x':0.25, 'top':0.7}
+            size_hint: 0.5, 0.5
+
+        Image:
+            source: 'bcgrnd.jpg'
+            pos_hint: {'x':0, 'top':0.3}
+            size_hint: 1, 1
+
+        Image:
+            source: 'bcgrnd2.png'
+            pos_hint: {'x':0, 'top':1.75}
+            size_hint: 1.2, 1
 
         Button:
             pos_hint: {'x':0.25, 'top':0.25}
             text: 'START'
             size_hint: 0.5, 0.1
-            color: utils.get_color_from_hex('#d1cbcb')
+            color: utils.get_color_from_hex('#ce4b4b')
+            background_normal: ''
+            background_color: utils.get_color_from_hex('#f2bd41')
             font_size: '25dp'
             bold: True
             canvas.before:
@@ -59,16 +76,26 @@ WindowManager:
                     rectangle: self.x, self.y, self.width, self.height
             on_release:
                 app.root.current = 'main'
-                root.manager.transition = SwapTransition()
+                root.manager.transition.direction = 'left'
+<TextInput>:
+    canvas.before:
+        Color:
+            rgba: .36, .65, .36, 1
+        Line:
+            width: 1.5
+            rectangle: self.x, self.y, self.width, self.height
+
 
 <MainWindow>:
     name: 'main'
     FloatLayout:
         Button:
-            pos_hint: {'x':0.33, 'top':0.25}
+            pos_hint: {'x':0.2, 'top':0.32}
             text: 'Calculate'
-            size_hint: 0.33, 0.07
-            color: utils.get_color_from_hex('#d1cbcb')
+            size_hint: 0.6, 0.1
+            color: utils.get_color_from_hex('#ce4b4b')
+            background_normal: ''
+            background_color: utils.get_color_from_hex('#f2bd41')
             font_size: '25dp'
             bold: True
             canvas.before:
@@ -79,12 +106,17 @@ WindowManager:
                     rectangle: self.x, self.y, self.width, self.height
             on_release:
                 app.root.current = 'result'
+                root.manager.transition.direction = 'left'
+                root.calculate()
+                root.clear_inputs()
 
         Button:
-            pos_hint: {'x':0.375, 'top':0.1}
+            pos_hint: {'x':0.375, 'top':0.15}
             text: 'Exit'
             size_hint: 0.25, 0.05
-            color: utils.get_color_from_hex('#d1cbcb')
+            color: utils.get_color_from_hex('#ce4b4b')
+            background_normal: ''
+            background_color: utils.get_color_from_hex('#f2bd41')
             font_size: '25dp'
             bold: True
             canvas.before:
@@ -96,65 +128,93 @@ WindowManager:
             on_release:
                 app.stop()
 
+        Image:
+            source: 'bcgrnd.jpg'
+            pos_hint: {'x':0, 'top':0.3}
+            size_hint: 1, 1
+
+        Image:
+            source: 'bcgrnd2.png'
+            pos_hint: {'x':0, 'top':1.75}
+            size_hint: 1.2, 1
+
         TextInput:
+            id: quan1
             hint_text: 'Quantity'
             pos_hint: {'x':0.1, 'top':0.7}
             size_hint: 0.3, 0.05
             multiline: False
             font_size: 12
-            background_color: utils.get_color_from_hex('#454343')
-            foreground_color: utils.get_color_from_hex('#ffffff')
+            color: utils.get_color_from_hex('#ce4b4b')
+            background_normal: ''
+            background_color: utils.get_color_from_hex('#f2bd41')
+            foreground_color: utils.get_color_from_hex('#69a65e')
+            on_focus:
+                root.change_pic1()
+
 
         TextInput:
-            hint_text: 'Size'
+            id: size1
+            hint_text: 'Diameter in cm'
             pos_hint: {'x':0.1, 'top':0.6}
             size_hint: 0.3, 0.05
             multiline: False
             font_size: 12
-            background_color: utils.get_color_from_hex('#454343')
-            foreground_color: utils.get_color_from_hex('#ffffff')
+            background_normal: ''
+            background_color: utils.get_color_from_hex('#f2bd41')
+            foreground_color: utils.get_color_from_hex('#69a65e')
 
         TextInput:
-            hint_text: 'Price'
+            id: price1
+            hint_text: 'Price per one       $'
             pos_hint: {'x':0.1, 'top':0.5}
             size_hint: 0.3, 0.05
             multiline: False
             font_size: 12
-            background_color: utils.get_color_from_hex('#454343')
-            foreground_color: utils.get_color_from_hex('#ffffff')
+            background_normal: ''
+            background_color: utils.get_color_from_hex('#f2bd41')
+            foreground_color: utils.get_color_from_hex('#69a65e')
 
         TextInput:
+            id: quan2
             hint_text: 'Quantity'
             pos_hint: {'x':0.6, 'top':0.7}
             size_hint: 0.3, 0.05
             multiline: False
             font_size: 12
-            background_color: utils.get_color_from_hex('#454343')
-            foreground_color: utils.get_color_from_hex('#ffffff')
+            background_normal: ''
+            background_color: utils.get_color_from_hex('#f2bd41')
+            foreground_color: utils.get_color_from_hex('#69a65e')
+            on_focus:
+                root.change_pic2()
 
         TextInput:
-            hint_text: 'Size'
+            id: size2
+            hint_text: 'Diameter in cm'
             pos_hint: {'x':0.6, 'top':0.6}
             size_hint: 0.3, 0.05
             multiline: False
             font_size: 12
-            background_color: utils.get_color_from_hex('#454343')
-            foreground_color: utils.get_color_from_hex('#ffffff')
+            background_normal: ''
+            background_color: utils.get_color_from_hex('#f2bd41')
+            foreground_color: utils.get_color_from_hex('#69a65e')
 
         TextInput:
-            hint_text: 'Price'
+            id: price2
+            hint_text: 'Price per one       $'
             pos_hint: {'x':0.6, 'top':0.5}
             size_hint: 0.3, 0.05
             multiline: False
             font_size: 12
-            background_color: utils.get_color_from_hex('#454343')
-            foreground_color: utils.get_color_from_hex('#ffffff')
+            background_normal: ''
+            background_color: utils.get_color_from_hex('#f2bd41')
+            foreground_color: utils.get_color_from_hex('#69a65e')
 
         Label:
-            pos_hint: {'x':0, 'top':1.4}
+            pos_hint: {'x':0, 'top':1.44}
             text: "Enter details about pizza's sets:"
             size: self.texture_size
-            font_size: '16dp'
+            font_size: '17dp'
             bold: True
             font_name: 'RobotoMono-Regular'
             color: utils.get_color_from_hex('#69a65e')
@@ -175,21 +235,101 @@ WindowManager:
             font_name: 'RobotoMono-Regular'
             color: utils.get_color_from_hex('#69a65e')
 
+        Image:
+            id: one
+            source: 'morepizzas.png'
+            pos_hint: {'x':0.13, 'top':0.95}
+            size_hint: 0.27, 0.27
+
+        Image:
+            id: two
+            source: '2pizzas.png'
+            pos_hint: {'x':0.62, 'top':0.95}
+            size_hint: 0.27, 0.27
+
+
+
 <ResultWindow>:
     name: 'result'
+    FloatLayout:
 
+        Button:
+            pos_hint: {'x':0.3, 'top':0.2}
+            text: 'BACK'
+            size_hint: 0.4, 0.1
+            color: utils.get_color_from_hex('#ce4b4b')
+            background_normal: ''
+            background_color: utils.get_color_from_hex('#f2bd41')
+            font_size: '25dp'
+            bold: True
+            canvas.before:
+                Color:
+                    rgba: .36, .65, .36, 1
+                Line:
+                    width: 5
+                    rectangle: self.x, self.y, self.width, self.height
+            on_release:
+                app.root.current = 'main'
+                root.manager.transition.direction = 'right'
+
+        Image:
+            source: 'bcgrnd.jpg'
+            pos_hint: {'x':0, 'top':0.3}
+            size_hint: 1, 1
+
+        Image:
+            source: 'bcgrnd2.png'
+            pos_hint: {'x':0, 'top':1.75}
+            size_hint: 1.2, 1
+
+        Label:
+            pos_hint: {'x':-0.26, 'top':1.22}
+            text: '#1'
+            size: self.texture_size
+            font_size: '16dp'
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
+
+        Label:
+            pos_hint: {'x':0.24, 'top':1.22}
+            text: '#2'
+            size: self.texture_size
+            font_size: '16dp'
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
+
+        Label:
+            id: result
+            pos_hint: {'x':0, 'top':1.4}
+            text: ""
+            size: self.texture_size
+            font_size: '17dp'
+            bold: True
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
+
+        Image:
+            id: one
+            source: 'morepizzas.png'
+            pos_hint: {'x':0.13, 'top':0.95}
+            size_hint: 0.27, 0.27
+
+        Image:
+            id: two
+            source: '2pizzas.png'
+            pos_hint: {'x':0.62, 'top':0.95}
+            size_hint: 0.27, 0.27
+
+
+
+<P>:
+    Label:
+        text: 'Inputs accept only numbers!'
+        size_hint: 0.6, 0.2
+        pos_hint: {'x':0.2,'top':0.8}
     Button:
-        pos_hint: {'x':0.3, 'top':0.15}
-        text: 'BACK'
-        size_hint: 0.4, 0.1
-        color: utils.get_color_from_hex('#d1cbcb')
-        font_size: '25dp'
-        bold: True
-        canvas.before:
-            Color:
-                rgba: .36, .65, .36, 1
-            Line:
-                width: 5
-                rectangle: self.x, self.y, self.width, self.height
+        text: 'Back'
+        size_hint: 0.8, 0.2
+        pos_hint: {'x':0.1,'y':0.1}
         on_release:
             app.root.current = 'main'
