@@ -4,7 +4,6 @@
 WindowManager:
     WelcomeWindow:
     MainWindow:
-    ResultWindow:
     P:
 
 <WelcomeWindow>:
@@ -92,7 +91,7 @@ WindowManager:
         Button:
             pos_hint: {'x':0.2, 'top':0.32}
             text: 'Calculate'
-            size_hint: 0.6, 0.1
+            size_hint: 0.6, 0.05
             color: utils.get_color_from_hex('#ce4b4b')
             background_normal: ''
             background_color: utils.get_color_from_hex('#f2bd41')
@@ -105,15 +104,30 @@ WindowManager:
                     width: 5
                     rectangle: self.x, self.y, self.width, self.height
             on_release:
-                app.root.current = 'result'
-                root.manager.transition.direction = 'left'
                 root.calculate()
+
+        Button:
+            pos_hint: {'x':0.2, 'top':0.235}
+            text: 'Clear'
+            size_hint: 0.6, 0.05
+            color: utils.get_color_from_hex('#ce4b4b')
+            background_normal: ''
+            background_color: utils.get_color_from_hex('#f2bd41')
+            font_size: '25dp'
+            bold: True
+            canvas.before:
+                Color:
+                    rgba: .36, .65, .36, 1
+                Line:
+                    width: 5
+                    rectangle: self.x, self.y, self.width, self.height
+            on_release:
                 root.clear_inputs()
 
         Button:
-            pos_hint: {'x':0.375, 'top':0.15}
+            pos_hint: {'x':0.2, 'top':0.15}
             text: 'Exit'
-            size_hint: 0.25, 0.05
+            size_hint: 0.6, 0.05
             color: utils.get_color_from_hex('#ce4b4b')
             background_normal: ''
             background_color: utils.get_color_from_hex('#f2bd41')
@@ -156,7 +170,7 @@ WindowManager:
         TextInput:
             id: size1
             hint_text: 'Diameter in cm'
-            pos_hint: {'x':0.1, 'top':0.6}
+            pos_hint: {'x':0.1, 'top':0.64}
             size_hint: 0.3, 0.05
             multiline: False
             font_size: 12
@@ -167,7 +181,7 @@ WindowManager:
         TextInput:
             id: price1
             hint_text: 'Price per one       $'
-            pos_hint: {'x':0.1, 'top':0.5}
+            pos_hint: {'x':0.1, 'top':0.58}
             size_hint: 0.3, 0.05
             multiline: False
             font_size: 12
@@ -191,7 +205,7 @@ WindowManager:
         TextInput:
             id: size2
             hint_text: 'Diameter in cm'
-            pos_hint: {'x':0.6, 'top':0.6}
+            pos_hint: {'x':0.6, 'top':0.64}
             size_hint: 0.3, 0.05
             multiline: False
             font_size: 12
@@ -202,7 +216,7 @@ WindowManager:
         TextInput:
             id: price2
             hint_text: 'Price per one       $'
-            pos_hint: {'x':0.6, 'top':0.5}
+            pos_hint: {'x':0.6, 'top':0.58}
             size_hint: 0.3, 0.05
             multiline: False
             font_size: 12
@@ -239,87 +253,81 @@ WindowManager:
             id: one
             source: 'morepizzas.png'
             pos_hint: {'x':0.13, 'top':0.95}
-            size_hint: 0.27, 0.27
+            size_hint: 0, 0
 
         Image:
             id: two
             source: '2pizzas.png'
             pos_hint: {'x':0.62, 'top':0.95}
-            size_hint: 0.27, 0.27
+            size_hint: 0, 0
 
-
-
-<ResultWindow>:
-    name: 'result'
-    FloatLayout:
-
-        Button:
-            pos_hint: {'x':0.3, 'top':0.2}
-            text: 'BACK'
-            size_hint: 0.4, 0.1
-            color: utils.get_color_from_hex('#ce4b4b')
-            background_normal: ''
-            background_color: utils.get_color_from_hex('#f2bd41')
-            font_size: '25dp'
+        Label:
+            id: tarea
+            pos_hint: {'x':0, 'top':1}
+            text: ":Total area:"
+            size: self.texture_size
+            font_size: '0dp'
             bold: True
-            canvas.before:
-                Color:
-                    rgba: .36, .65, .36, 1
-                Line:
-                    width: 5
-                    rectangle: self.x, self.y, self.width, self.height
-            on_release:
-                app.root.current = 'main'
-                root.manager.transition.direction = 'right'
-
-        Image:
-            source: 'bcgrnd.jpg'
-            pos_hint: {'x':0, 'top':0.3}
-            size_hint: 1, 1
-
-        Image:
-            source: 'bcgrnd2.png'
-            pos_hint: {'x':0, 'top':1.75}
-            size_hint: 1.2, 1
-
-        Label:
-            pos_hint: {'x':-0.26, 'top':1.22}
-            text: '#1'
-            size: self.texture_size
-            font_size: '16dp'
             font_name: 'RobotoMono-Regular'
             color: utils.get_color_from_hex('#69a65e')
 
         Label:
-            pos_hint: {'x':0.24, 'top':1.22}
-            text: '#2'
+            id: tprice
+            pos_hint: {'x':0, 'top':0.95}
+            text: ":Total price:"
             size: self.texture_size
-            font_size: '16dp'
+            font_size: '0dp'
+            bold: True
             font_name: 'RobotoMono-Regular'
             color: utils.get_color_from_hex('#69a65e')
 
         Label:
-            id: result
-            pos_hint: {'x':0, 'top':1.4}
-            text: ""
+            id: tprice1
+            pos_hint: {'x':-0.3, 'top':0.95}
             size: self.texture_size
-            font_size: '17dp'
+            font_size: '14dp'
+            bold: True
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
+
+        Label:
+            id: tprice2
+            pos_hint: {'x':0.3, 'top':0.95}
+            size: self.texture_size
+            font_size: '14dp'
+            bold: True
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
+
+        Label:
+            id: tarea1
+            pos_hint: {'x':-0.3, 'top':1}
+            size: self.texture_size
+            font_size: '14dp'
+            bold: True
+            font_name: 'RobotoMono-Regular'
+            color: utils.get_color_from_hex('#69a65e')
+
+        Label:
+            id: tarea2
+            pos_hint: {'x':0.3, 'top':1}
+            size: self.texture_size
+            font_size: '14dp'
             bold: True
             font_name: 'RobotoMono-Regular'
             color: utils.get_color_from_hex('#69a65e')
 
         Image:
-            id: one
-            source: 'morepizzas.png'
-            pos_hint: {'x':0.13, 'top':0.95}
-            size_hint: 0.27, 0.27
+            id: res2
+            source: 'trans.png'
+            pos_hint: {'x':0.7, 'top':0.45}
+            size_hint: 0, 0
 
         Image:
-            id: two
-            source: '2pizzas.png'
-            pos_hint: {'x':0.62, 'top':0.95}
-            size_hint: 0.27, 0.27
-
+            id: res1
+            source: 'trans.png'
+            pos_hint: {'x':0.12, 'top':0.45}
+            size_hint: 0, 0
 
 
 <P>:
@@ -327,9 +335,4 @@ WindowManager:
         text: 'Inputs accept only numbers!'
         size_hint: 0.6, 0.2
         pos_hint: {'x':0.2,'top':0.8}
-    Button:
-        text: 'Back'
-        size_hint: 0.8, 0.2
-        pos_hint: {'x':0.1,'y':0.1}
-        on_release:
-            app.root.current = 'main'
+
